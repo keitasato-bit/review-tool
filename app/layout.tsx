@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "口コミ作成補助ツール",
-  description: "整体院向けGoogle口コミ下書き作成ツール",
+  description: "Google口コミ下書き作成ツール",
 };
 
 export default function RootLayout({
