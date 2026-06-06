@@ -20,15 +20,11 @@ export default function ClinicSurveyForm({ clinic }: Props) {
   const [reviewText, setReviewText] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const trimmedFreeText = freeText.trim();
-  const canGenerate = trimmedFreeText.length > 0;
-
   function handleRatingChange(questionId: string, value: RatingValue) {
     setRatings((prev) => ({ ...prev, [questionId]: value }));
   }
 
   function handleGenerate() {
-    if (!canGenerate) return;
     const text = generateClinicReview({
       clinic,
       ratings,
@@ -96,12 +92,6 @@ export default function ClinicSurveyForm({ clinic }: Props) {
           ご投稿は任意です。実際のご体験に合わせて内容をご確認のうえ、必要に応じて編集してご投稿ください。
         </p>
 
-        {!canGenerate && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-            ご感想のご記入をお願いします。
-          </p>
-        )}
-
         <div className="flex gap-3">
           <button
             type="button"
@@ -113,8 +103,7 @@ export default function ClinicSurveyForm({ clinic }: Props) {
           <button
             type="button"
             onClick={handleGenerate}
-            disabled={!canGenerate}
-            className="flex-[2] py-3 px-4 rounded-xl text-sm font-medium text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-[2] py-3 px-4 rounded-xl text-sm font-medium text-white"
             style={{ backgroundColor: clinic.brand.primaryColor }}
           >
             口コミ文を作成する

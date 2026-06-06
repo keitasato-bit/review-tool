@@ -2,14 +2,14 @@ import type { ClinicSurveyData } from "./clinic-types";
 
 const clinics: ClinicSurveyData[] = [
   {
-    id: "sample-clinic",
-    name: "サンプルクリニック",
+    id: "sukoyaka-musashino",
+    name: "すこやか武蔵野クリニック",
     reviewUrl: "https://www.google.com/maps",
     brand: {
       primaryColor: "#2F6B5F",
       secondaryColor: "#F3F7F5",
       accentColor: "#D7E7E1",
-      logoText: "サンプルクリニック",
+      logoText: "すこやか武蔵野クリニック",
     },
     ratingQuestions: [
       { id: "reception", label: "受付スタッフの対応（対面・電話）について" },

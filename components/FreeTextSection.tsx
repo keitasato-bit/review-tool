@@ -36,8 +36,8 @@ export default function FreeTextSection({
         <h2 className="text-sm font-semibold text-gray-700">
           {clinic.freeTextLabel}
         </h2>
-        <span className="text-[10px] font-medium text-white bg-red-500 rounded px-1.5 py-0.5 flex-shrink-0">
-          必須
+        <span className="text-[10px] font-medium text-gray-500 bg-gray-100 border border-gray-200 rounded px-1.5 py-0.5 flex-shrink-0">
+          任意
         </span>
       </div>
       <div className="p-4 space-y-3">
@@ -52,8 +52,6 @@ export default function FreeTextSection({
           onChange={(e) => onChange(e.target.value)}
           placeholder={clinic.freeTextPlaceholder}
           rows={5}
-          required
-          aria-required="true"
           className="w-full text-sm text-gray-700 border border-gray-200 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-[#2F6B5F] focus:border-transparent placeholder:text-gray-400"
         />
       </div>
