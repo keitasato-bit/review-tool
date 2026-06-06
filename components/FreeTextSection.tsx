@@ -50,7 +50,7 @@ export default function FreeTextSection({
         <textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder={clinic.freeTextPlaceholder}
+          placeholder=""
           rows={5}
           className="w-full text-sm text-gray-700 border border-gray-200 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-[#2F6B5F] focus:border-transparent placeholder:text-gray-400"
         />
