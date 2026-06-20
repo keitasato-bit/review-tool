@@ -23,9 +23,12 @@ export type ShopSettings = {
   allowFreeText: boolean;
 };
 
+export type ShopBusinessType = "seitai" | "houkan";
+
 export type ShopData = {
   id: string;
   name: string;
+  businessType: ShopBusinessType;
   reviewUrl: string;
   brand: ShopBrand;
   settings: ShopSettings;

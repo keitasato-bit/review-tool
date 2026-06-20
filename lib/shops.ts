@@ -111,6 +111,7 @@ const shops: ShopData[] = [
   {
     id: "roots-azabu-honten",
     name: "R∞tsメディカル整体院 麻布本店",
+    businessType: "seitai",
     reviewUrl: "https://g.page/r/CXLOP3Yg9ynSEBM/review",
     brand: { ...seitaiBrand, logoText: "R∞tsメディカル整体院 麻布本店" },
     settings: { ...seitaiSettings },
@@ -119,6 +120,7 @@ const shops: ShopData[] = [
   {
     id: "roots-azabujuban",
     name: "R∞tsメディカル整体院 麻布十番店",
+    businessType: "seitai",
     reviewUrl: "https://g.page/r/CfzmElDVe9BSEBM/review",
     brand: { ...seitaiBrand, logoText: "R∞tsメディカル整体院 麻布十番店" },
     settings: { ...seitaiSettings },
@@ -127,6 +129,7 @@ const shops: ShopData[] = [
   {
     id: "roots-shimbashi",
     name: "R∞tsメディカル整体院 新橋店",
+    businessType: "seitai",
     reviewUrl: "https://g.page/r/CSiNvE3Gt2LzEBM/review",
     brand: { ...seitaiBrand, logoText: "R∞tsメディカル整体院 新橋店" },
     settings: { ...seitaiSettings },
@@ -135,6 +138,7 @@ const shops: ShopData[] = [
   {
     id: "roots-musashikosugi",
     name: "R∞tsメディカル整体院 武蔵小杉店",
+    businessType: "seitai",
     reviewUrl: "https://g.page/r/CRdSv05vHUaNEBM/review",
     brand: { ...seitaiBrand, logoText: "R∞tsメディカル整体院 武蔵小杉店" },
     settings: { ...seitaiSettings },
@@ -143,6 +147,7 @@ const shops: ShopData[] = [
   {
     id: "sakulabo-houkan",
     name: "サクラボ訪問看護ステーション",
+    businessType: "houkan",
     reviewUrl: "https://g.page/r/CWwREoDiWlJOEAE/review",
     brand: {
       primaryColor: "#2F6B5F",
