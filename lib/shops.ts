@@ -252,6 +252,70 @@ const shops: ShopData[] = [
       },
     ],
   },
+  {
+    id: "sakulabo-houkan-renkei",
+    name: "サクラボ訪問看護ステーション（医療機関連携用）",
+    businessType: "houkan",
+    reviewUrl: "https://g.page/r/CWwREoDiWlJOEAE/review",
+    brand: {
+      primaryColor: "#2F6B5F",
+      secondaryColor: "#F3F7F5",
+      accentColor: "#D7E7E1",
+      logoText: "サクラボ訪問看護ステーション",
+    },
+    settings: {
+      tone: "polite",
+      minLength: 120,
+      maxLength: 220,
+      allowFreeText: true,
+    },
+    categories: [
+      {
+        id: "communication",
+        label: "報告・連絡・相談",
+        options: [
+          { id: "communication-1", label: "報告がこまめで状況を把握しやすかった" },
+          { id: "communication-2", label: "連絡のレスポンスが早かった" },
+          { id: "communication-3", label: "相談しやすい雰囲気だった" },
+          { id: "communication-4", label: "必要な情報を的確に共有してくれた" },
+          { id: "communication-5", label: "緊急時の連絡体制が整っていた" },
+        ],
+      },
+      {
+        id: "teamwork",
+        label: "多職種連携の姿勢",
+        options: [
+          { id: "teamwork-1", label: "担当者会議に積極的に参加してくれた" },
+          { id: "teamwork-2", label: "チームとして動きやすかった" },
+          { id: "teamwork-3", label: "役割分担が明確だった" },
+          { id: "teamwork-4", label: "他職種の意見を尊重してくれた" },
+          { id: "teamwork-5", label: "連携の調整に協力的だった" },
+        ],
+      },
+      {
+        id: "expertise",
+        label: "専門性・対応力",
+        options: [
+          { id: "expertise-1", label: "専門的な視点が頼りになった" },
+          { id: "expertise-2", label: "利用者の状態を的確に把握していた" },
+          { id: "expertise-3", label: "状況に応じた柔軟な対応だった" },
+          { id: "expertise-4", label: "医療的な判断が信頼できた" },
+          { id: "expertise-5", label: "質の高いケアを提供していた" },
+        ],
+      },
+      {
+        id: "trust",
+        label: "連携先としての信頼感",
+        options: [
+          { id: "trust-1", label: "また一緒に支援したいと思える" },
+          { id: "trust-2", label: "安心して紹介できる" },
+          { id: "trust-3", label: "対応が誠実だった" },
+          { id: "trust-4", label: "利用者・家族からの信頼が厚かった" },
+          { id: "trust-5", label: "パートナーとして信頼できた" },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getShopById(shopId: string): ShopData | undefined {
