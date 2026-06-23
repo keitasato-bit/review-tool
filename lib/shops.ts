@@ -256,6 +256,7 @@ const shops: ShopData[] = [
     id: "sakulabo-houkan-renkei",
     name: "サクラボ訪問看護ステーション（医療機関連携用）",
     businessType: "houkan",
+    audience: "referral-partner",
     reviewUrl: "https://g.page/r/CWwREoDiWlJOEAE/review",
     brand: {
       primaryColor: "#2F6B5F",
