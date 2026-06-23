@@ -315,6 +315,28 @@ const shops: ShopData[] = [
           { id: "trust-5", label: "パートナーとして信頼できた" },
         ],
       },
+      {
+        id: "client-care",
+        label: "利用者・家族への関わり",
+        options: [
+          { id: "client-care-1", label: "利用者に丁寧に寄り添っていた" },
+          { id: "client-care-2", label: "家族へのフォローが手厚かった" },
+          { id: "client-care-3", label: "利用者が安心して過ごせていた" },
+          { id: "client-care-4", label: "利用者の生活を支える姿勢が伝わった" },
+          { id: "client-care-5", label: "紹介して良かったと感じた" },
+        ],
+      },
+      {
+        id: "responsiveness",
+        label: "対応の速さ・柔軟性",
+        options: [
+          { id: "responsiveness-1", label: "急な状況変化への対応が早かった" },
+          { id: "responsiveness-2", label: "柔軟に対応してくれた" },
+          { id: "responsiveness-3", label: "必要なときにすぐ動いてくれた" },
+          { id: "responsiveness-4", label: "スケジュール調整に融通が利いた" },
+          { id: "responsiveness-5", label: "臨機応変な判断ができていた" },
+        ],
+      },
     ],
   },
 ];

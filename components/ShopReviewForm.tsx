@@ -86,7 +86,14 @@ export default function ShopReviewForm({ shop }: Props) {
       >
         <div className="max-w-2xl mx-auto">
           <p className="text-xs font-medium opacity-80 mb-1">口コミ作成補助</p>
-          <h1 className="text-xl font-bold">{shop.brand.logoText}</h1>
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-xl font-bold">{shop.brand.logoText}</h1>
+            {shop.audience === "referral-partner" && (
+              <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded-full bg-white/20 border border-white/40">
+                連携機関用
+              </span>
+            )}
+          </div>
           <p className="text-sm mt-2 opacity-90 leading-relaxed">
             当てはまる項目を選ぶと、口コミ文の下書きが作成されます。
           </p>
