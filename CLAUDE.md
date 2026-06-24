@@ -10,8 +10,8 @@
 
 口コミ文の生成方法は業種で2系統あります。
 
-- **整体院・訪問看護（`/shop/...`）**：選択内容を `app/api/generate-review/route.ts` に送り、Anthropic API（`claude-haiku-4-5`）で口コミ文を生成する。
-- **クリニック（`/clinic/...`）**：`lib/clinic-review-generator.ts` のローカルロジック（API非依存）で満足度の選択から口コミ文を生成する。
+- **整体院・訪問看護（`/shop/...`）**：選択内容を `app/api/generate-review/route.ts` に送り、Anthropic API（`claude-haiku-4-5`）で口コミ文を生成する。system プロンプトは業種（`businessType`）と視点（`audience`）に応じて切り替わる（後述）。
+- **クリニック（`/clinic/...`）**：`lib/clinic-review-generator.ts` のローカルロジック（API非依存）で満足度の選択から口コミ文を生成する。このAPIルートは使わない。
 
 ## 技術構成
 
@@ -76,6 +76,24 @@ review-tool/
 - `lib/clinics.ts` には **クリニック**が入っており、データソースそのものが「クリニック」業種を表す（`businessType` フィールドは持たない）。
 - トップの管理ページ（`app/page.tsx`）は、この `businessType` とデータソースをもとに「整体院」「訪問看護」「クリニック」の3グループへ自動で振り分ける。
 
+### 視点（audience）フィールド
+
+- `ShopData` には任意の `audience?` フィールドがある（型は `ShopAudience = "referral-partner"`、`lib/types.ts` で定義）。
+- 未指定（`undefined`）は **患者・利用者本人/家族の目線**。`"referral-partner"` は **連携先の医療機関スタッフ（ケアマネ・退院支援担当など）の目線**を表す。
+- このフィールドは2か所で使われる：
+  - **AI生成の視点分岐**：`app/api/generate-review/route.ts` の system プロンプト切り替え（後述）。
+  - **ヘッダーのバッジ表示**：`components/ShopReviewForm.tsx` で `audience === "referral-partner"` のとき、店舗名の横に「連携機関用」バッジを表示する。
+
+### AI生成プロンプトの業種・視点別分岐
+
+- `app/api/generate-review/route.ts` の `buildSystemPrompt(shop)` が、`businessType` と `audience` に応じて system プロンプトを **3パターン**で切り替える（以前は「整体院」固定だった）。
+  - **整体院**（`businessType: "seitai"`、未知の業種のデフォルトも含む）：来院・施術の体験を患者目線で書く。
+  - **訪問看護 利用者向け**（`businessType: "houkan"` かつ `audience` 未指定）：利用者本人・家族の目線。「訪問」「看護」「ケア」などの語彙で在宅療養の体験として書く。
+  - **訪問看護 連携用**（`businessType: "houkan"` かつ `audience: "referral-partner"`）：連携パートナーの医療機関スタッフの目線。報告・連絡・相談、多職種連携、専門職としての対応力を評価する視点で書く。
+- 選択もフリーテキストもない場合のフォールバック指示文（`buildFallbackUserContent`）も同じ3パターンに合わせて切り替わる。
+- 共通の生成ルール（文体・文字数・誇大表現の禁止など）は `SHARED_RULES` 定数にまとめ、全パターンで共有する。
+- クリニックはローカル生成（`lib/clinic-review-generator.ts`）のため、このAPIルート・プロンプト分岐は通らない。
+
 ### 登録済み店舗・施設一覧
 
 | id | name | 業種 | reviewUrl | アクセスURL |
@@ -84,10 +102,15 @@ review-tool/
 | `roots-azabujuban` | R∞tsメディカル整体院 麻布十番店 | 整体院 (`seitai`) | https://g.page/r/CfzmElDVe9BSEBM/review | `/shop/roots-azabujuban` |
 | `roots-shimbashi` | R∞tsメディカル整体院 新橋店 | 整体院 (`seitai`) | https://g.page/r/CSiNvE3Gt2LzEBM/review | `/shop/roots-shimbashi` |
 | `roots-musashikosugi` | R∞tsメディカル整体院 武蔵小杉店 | 整体院 (`seitai`) | https://g.page/r/CRdSv05vHUaNEBM/review | `/shop/roots-musashikosugi` |
-| `sakulabo-houkan` | サクラボ訪問看護ステーション | 訪問看護 (`houkan`) | https://g.page/r/CWwREoDiWlJOEAE/review | `/shop/sakulabo-houkan` |
+| `sakulabo-houkan` | サクラボ訪問看護ステーション | 訪問看護 (`houkan`) 利用者向け | https://g.page/r/CWwREoDiWlJOEAE/review | `/shop/sakulabo-houkan` |
+| `sakulabo-houkan-renkei` | サクラボ訪問看護ステーション（医療機関連携用） | 訪問看護 (`houkan`) 連携用 (`audience: "referral-partner"`) | https://g.page/r/CWwREoDiWlJOEAE/review | `/shop/sakulabo-houkan-renkei` |
 | `higashikoganei-kodomo` | 東小金井駅前こどもクリニック | クリニック | https://g.page/r/CRsZzGJeziYFEBE/review | `/clinic/higashikoganei-kodomo` |
 
-整体院4店舗・訪問看護1店舗・クリニック1施設（合計6件）。
+整体院4店舗・訪問看護 利用者向け1・訪問看護 連携用1・クリニック1施設（合計7件）。
+
+- `sakulabo-houkan` と `sakulabo-houkan-renkei` は同じサクラボ訪問看護ステーション（`reviewUrl` も共通）だが、**別々のページ**として用意している。
+  - `sakulabo-houkan`：患者・利用者本人やその家族向け。カテゴリは利用者視点の8つ。
+  - `sakulabo-houkan-renkei`：連携先の医療機関（ケアマネジャー・退院支援担当・訪問診療スタッフ・他の訪問看護ステーションなど）向け。`audience: "referral-partner"` を持ち、カテゴリは連携先視点の6つ（報告・連絡・相談／多職種連携の姿勢／専門性・対応力／連携先としての信頼感／利用者・家族への関わり／対応の速さ・柔軟性）。
 
 ### 店舗ページのルートの仕組み
 

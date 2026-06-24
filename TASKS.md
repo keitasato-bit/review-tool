@@ -27,3 +27,5 @@
 - 整体院を4店舗構成に拡張（麻布本店・麻布十番店・新橋店・武蔵小杉店）。共通の `seitaiBrand` / `seitaiSettings` / `seitaiCategories` 定数を導入。
 - 業種別の店舗管理ページを作成（`app/page.tsx` を簡易パスワード保護つきの管理ページに刷新）。`ShopData` に `businessType` フィールドを追加し、整体院／訪問看護／クリニックの3グループへ自動振り分け。
 - クリニック（東小金井駅前こどもクリニック）を追加。`reviewUrl` を専用の口コミ投稿リンクに更新。
+- サクラボ訪問看護ステーションに「医療機関連携用」ページ（`sakulabo-houkan-renkei`）を追加。`ShopData` に `audience?`（`"referral-partner"`）フィールドを導入し、連携先（ケアマネ・退院支援・訪問診療・他事業所）視点の6カテゴリと、ヘッダーの「連携機関用」バッジ表示を実装。利用者向けの `sakulabo-houkan` とは別ページ（`reviewUrl` は共通）。
+- AI生成プロンプト（`app/api/generate-review/route.ts`）を業種・視点別に分岐。以前の「整体院」固定から、「整体院／訪問看護 利用者向け／訪問看護 連携用」の3パターンで system プロンプト・フォールバック指示を切り替えるようにした（共通ルールは `SHARED_RULES` に集約）。
